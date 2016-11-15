@@ -491,7 +491,7 @@
                 if (moveWithinTree && pos.dirAx) {
 
                   // increase horizontal level if previous sibling exists and is not collapsed
-                  // example 1.1.1 becomes 1.2 
+                  // example 1.1.1 becomes 1.2
                   if (pos.distX > 0) {
                     prev = dragInfo.prev();
                     if (prev && !prev.collapsed
@@ -515,7 +515,7 @@
                       }
                     }
                   }
-                } else { //Either in origin tree and moving horizontally OR you are moving within a new tree.  
+                } else { //Either in origin tree and moving horizontally OR you are moving within a new tree.
 
                   //Check it's new position.
                   isEmpty = false;
@@ -538,6 +538,11 @@
                   //If target is a handle set new target to handle's node.
                   if (targetNode.$type === 'uiTreeHandle') {
                     targetNode = targetNode.$nodeScope;
+                  }
+                  //If target is a uiTreeNodes, assume append
+                  if (targetNode.$type === 'uiTreeNodes') {
+                      targetNode.place(placeElm);
+                      dragInfo.moveTo(targetNode.$nodesScope, targetNode.$nodesScope.childNodes(), targetNode.$nodesScope.childNodes().length);
                   }
 
                   //Check if it is a uiTreeNode or it's an empty tree.
